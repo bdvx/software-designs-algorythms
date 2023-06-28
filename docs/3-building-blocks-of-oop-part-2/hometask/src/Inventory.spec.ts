@@ -1,12 +1,6 @@
-// @ts-nocheck
-
 import { Item } from "./Item";
 import { Inventory } from "./Inventory";
 import { ItemComparator } from "./ItemComparator";
-
-class ItemWithImplementation extends Item {
-  use() {}
-}
 
 describe("Inventory", () => {
   beforeEach(() => {
@@ -14,7 +8,7 @@ describe("Inventory", () => {
   });
 
   it("should add items", () => {
-    const item = new ItemWithImplementation("ring", 2, 1);
+    const item = new Item("ring", 2, 1);
     const inventory = new Inventory();
 
     inventory.addItem(item);
@@ -24,14 +18,14 @@ describe("Inventory", () => {
 
   describe("sort()", () => {
     it("should sort items by comparator", () => {
-      const item = new ItemWithImplementation("ring1", 3, 1);
-      const item2 = new ItemWithImplementation("ring2", 4, 2);
+      const item = new Item("ring1", 3, 1);
+      const item2 = new Item("ring2", 4, 2);
       const inventory = new Inventory();
 
       inventory.addItem(item);
       inventory.addItem(item2);
 
-      const comparator: ItemComparator = {
+      const comparator: ItemComparator<Item> = {
         compare: () => -1,
       };
       const compareSpy = spyOn(comparator, "compare");
@@ -47,8 +41,8 @@ describe("Inventory", () => {
     });
 
     it("should sort items by value", () => {
-      const item1 = new ItemWithImplementation("ring1", 4, 2);
-      const item2 = new ItemWithImplementation("ring2", 3, 1);
+      const item1 = new Item("ring1", 4, 2);
+      const item2 = new Item("ring2", 3, 1);
       const inventory = new Inventory();
 
       inventory.addItem(item1);
