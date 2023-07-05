@@ -53,7 +53,7 @@ name: Philip, distance: 30.364, reward: 600`));
       expect(show(SortBy.reward)(clientsWithoutNone)(executorWithoutPossibilities)).toStrictEqual(left(`This executor cannot meet the demands of any client!`));
     });
 
-    it('show returns left with the message when cannot find clients', () => {
+    it('show returns left with the message when meets all demands of all clients', () => {
       const executorWithAllPossibilities = {
         ...executor,
         possibilities: [Demand.Fishing, Demand.Fighting, Demand.Driving]
