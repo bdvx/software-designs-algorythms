@@ -48,6 +48,7 @@ describe("Scheduler", () => {
 
     // event-loop tick
     return task(() => {
+      console.log('executedTasks1', executedTasks)
       // execution of tasks was in order of priority
       expect(executedTasks).toEqual([
         "P1: 0",
@@ -88,6 +89,7 @@ describe("Scheduler", () => {
     spawnP2(); // P2: 5
 
     return scheduler.run().then(() => {
+      console.log('executedTasks2', executedTasks)
       expect(executedTasks).toEqual([
         "P1: 0",
         "P1: 1",
