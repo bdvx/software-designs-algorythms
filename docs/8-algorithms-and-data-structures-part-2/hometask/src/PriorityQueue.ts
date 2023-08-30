@@ -1,12 +1,14 @@
 interface PriorityQueueI<T> {
   enqueue(value: T, priority: number): void;
-  dequeue(): T | undefined;
+  dequeue(): Function;
   size(): number;
 }
 
 // User defined class
 // to store element and its priority
-class QElement {
+export class QElement {
+  element: Function 
+  priority: number
   constructor(element, priority)
   {
       this.element = element;
@@ -14,7 +16,8 @@ class QElement {
   }
 }
 
-export class PriorityQueue<T> implements PriorityQueueI<T> 
+export class PriorityQueue<T> implements PriorityQueueI<T> {
+  items: Array<QElement>
   // An array is used to implement priority
   constructor()
   {
@@ -23,7 +26,7 @@ export class PriorityQueue<T> implements PriorityQueueI<T>
 
   // enqueue function to add element
   // to the queue as per priority
-  enqueue(element, priority)
+  public enqueue(element, priority)
   {
       // creating object from queue element
       var qElement = new QElement(element, priority);
@@ -48,19 +51,22 @@ export class PriorityQueue<T> implements PriorityQueueI<T>
           this.items.push(qElement);
       }
   }
+  public isEmpty()
+  {
+    return this.items.length == 0
+  }
   // dequeue method to remove
   // element from the queue
-  dequeue()
+  public dequeue()
   {
       // return the dequeued element
       // and remove it.
       // if the queue is empty
       // returns Underflow
-      if (this.isEmpty())
-          return "Underflow";
-      return this.items.shift();
+      if (!this.isEmpty())
+          return this.items.shift().element;
   }
-  size()
+  public size()
   {
       return this.items.length;
   }
